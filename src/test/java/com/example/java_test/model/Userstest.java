@@ -1,8 +1,6 @@
-package com.example.java_test_real.model;
-import com.example.java_test.model.Users;
+package com.example.java_test.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
 
 public class Userstest {
     @Test

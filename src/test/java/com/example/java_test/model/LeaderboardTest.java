@@ -1,8 +1,5 @@
-package com.example.java_test_real.model;
+package com.example.java_test.model;
 
-import com.example.java_test.model.Game;
-import com.example.java_test.model.Leaderboard;
-import com.example.java_test.model.Users;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -36,7 +33,7 @@ public class LeaderboardTest {
     void testLeaderboardConstructor() {
         Float score = 200.0f;
         Users player = new Users("anotherPlayer", "password123", "another@example.com");
-        Game game = new Game("Another Game");
+        Game game = new Game("Another Game","super leukemia");
 
         Leaderboard leaderboard = new Leaderboard(score, player, game);
 

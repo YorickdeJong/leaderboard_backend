@@ -22,28 +22,50 @@ public class LeaderboardRepositoryTest {
 
     private Leaderboard leaderboard;
 
+
+
     @BeforeEach
     void setUp() {
-        // Assuming Users and Game entities are already tested and working
-        Users user = new Users("username", "password", "user@example.com");
-        Game game = new Game("GameName", "GameDescription");
-        entityManager.persist(user);
+        Game game = new Game("Chess", "A strategy board game");
+        Users player = new Users("testPlayer", "password", "player@example.com");
+
+        // Persist Game and Users
         entityManager.persist(game);
+        entityManager.persist(player);
         entityManager.flush();
 
-        leaderboard = new Leaderboard(100.0f, user, game);
+        // Retrieve and assert Game and Users exist
+        Game persistedGame = entityManager.find(Game.class, game.getId());
+        Users persistedUser = entityManager.find(Users.class, player.getId());
+
+        assertNotNull(persistedGame, "Persisted game should not be null");
+        assertNotNull(persistedUser, "Persisted user should not be null");
+        System.out.println(persistedGame.getName());
+        System.out.println(persistedUser.getName());
+        // Create and persist Leaderboard
+        Leaderboard leaderboard = new Leaderboard(100.0f, player, game);
         entityManager.persist(leaderboard);
         entityManager.flush();
     }
 
+
+
+
     @Test
     public void whenFindById_thenReturnLeaderboard() {
         Leaderboard found = leaderboardRepository.findById(leaderboard.getId()).orElse(null);
-        assertNotNull(found);
-        assertEquals(leaderboard.getScore(), found.getScore());
-        assertEquals(leaderboard.getPlayer().getName(), found.getPlayer().getName());
-        assertEquals(leaderboard.getGame().getName(), found.getGame().getName());
+
+        assertNotNull(found, "Leaderboard should not be null");
+
+        assertEquals(leaderboard.getScore(), found.getScore(), "Scores do not match");
+
+        assertEquals(leaderboard.getPlayer().getName(), found.getPlayer().getName(),
+                "Player names do not match");
+
+        assertEquals(leaderboard.getGame().getName(), found.getGame().getName(),
+                "Game names do not match");
     }
+
 
     // Additional tests can be added for other custom methods in LeaderboardRepository
 }

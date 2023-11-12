@@ -1,6 +1,5 @@
-package com.example.java_test_real.model;
+package com.example.java_test.model;
 
-import com.example.java_test.model.Game;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
