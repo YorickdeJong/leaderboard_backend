@@ -6,7 +6,7 @@ target/
 .env
 
 src/main/resources/application.properties
-pom.xml
+
 
 ### STS ###
 .apt_generated
@@ -16,7 +16,8 @@ pom.xml
 .settings
 .springBeans
 .sts4-cache
-
+.data2/*
+/data2/
 ### IntelliJ IDEA ###
 .idea
 *.iws

@@ -6,12 +6,12 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: TijgeR030!
+      POSTGRES_PASSWORD: Opyorick1
       POSTGRES_DB: java_test_db
     ports:
       - "5432:5432"
     volumes:
-      - my_dbdata:/var/lib/postgresql/data
+      - ./data2:/var/lib/postgresql/data
 
 volumes:
   my_dbdata:
