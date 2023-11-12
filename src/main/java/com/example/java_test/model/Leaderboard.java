@@ -3,6 +3,8 @@ package com.example.java_test.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Leaderboard {
 
@@ -19,13 +21,18 @@ public class Leaderboard {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @Column(name = "date")
+    private LocalDate date;
+
     public Leaderboard() {
+        this.date = LocalDate.now(); // Set the current date by default
     }
 
     public Leaderboard(Float score, Users player, Game game) {
         this.score = score;
         this.player = player;
         this.game = game;
+        this.date = LocalDate.now(); // Set the current date
     }
 
     // Getters and setters
@@ -61,4 +68,15 @@ public class Leaderboard {
     public void setGame(Game game) {
         this.game = game;
     }
+
+
+    // Getter and setter for date
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
 }
