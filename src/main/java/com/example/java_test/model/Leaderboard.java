@@ -1,25 +1,28 @@
 package com.example.java_test.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Leaderboard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Float score;
-    private String player;
-    private String game;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users player;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
 
     public Leaderboard() {
     }
 
-    public Leaderboard(Float score, String player, String game) {
+    public Leaderboard(Float score, Users player, Game game) {
         this.score = score;
         this.player = player;
         this.game = game;
@@ -43,19 +46,19 @@ public class Leaderboard {
         this.score = score;
     }
 
-    public String getPlayer() {
+    public Users getPlayer() {
         return player;
     }
 
-    public void setPlayer(String player) {
+    public void setPlayer(Users player) {
         this.player = player;
     }
 
-    public String getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGame(String game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 }

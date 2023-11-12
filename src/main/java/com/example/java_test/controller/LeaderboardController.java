@@ -2,6 +2,8 @@ package com.example.java_test.controller;
 
 import com.example.java_test.model.Leaderboard;
 import com.example.java_test.service.LeaderboardService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +14,7 @@ import java.util.List;
 public class LeaderboardController {
 
     private final LeaderboardService leaderboardService;
-
+    private static final Logger logger = LoggerFactory.getLogger(LeaderboardController.class);
     // Constructor for dependency injection
     public LeaderboardController(LeaderboardService leaderboardService) {
         this.leaderboardService = leaderboardService;
