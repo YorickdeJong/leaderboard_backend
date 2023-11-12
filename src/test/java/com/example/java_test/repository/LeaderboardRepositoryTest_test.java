@@ -14,19 +14,17 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
-
+@DataJpaTest
 @TestPropertySource(properties = {
-        "spring.datasource.url=jdbc:postgresql://localhost:5432/java_test_db",
-        "spring.datasource.username=your_username",
-        "spring.datasource.password=your_password",
-        "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect"
+        "spring.jpa.hibernate.ddl-auto=create-drop",
+        "spring.flyway.enabled=false"
 })
-@Transactional
-@Rollback(false)
-public class LeaderboardRepositoryTest {
+
+public class LeaderboardRepositoryTest_test {
 
     @Autowired
     private TestEntityManager entityManager;

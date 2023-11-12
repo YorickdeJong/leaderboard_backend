@@ -1,12 +1,14 @@
 package com.example.java_test.model;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@DataJpaTest
 public class LeaderboardTest {
     @Test
     void testLeaderboardGettersAndSetters() {

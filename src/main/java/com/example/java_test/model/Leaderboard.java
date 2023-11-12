@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+
 @Entity
+@Table(name = "leaderboard")
 public class Leaderboard {
 
     @Id

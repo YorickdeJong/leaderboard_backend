@@ -5,13 +5,27 @@ import com.example.java_test.model.Leaderboard;
 import com.example.java_test.model.Users;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
+@TestPropertySource(properties = {
+        "spring.datasource.url=jdbc:postgresql://localhost:5432/java_test_db",
+        "spring.datasource.username=postgres",
+        "spring.datasource.password=Opyorick1",
+        "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect"
+})
+@Transactional
+@Rollback(false)
 public class LeaderboardRepositoryTest {
 
     @Autowired
@@ -33,6 +47,7 @@ public class LeaderboardRepositoryTest {
         entityManager.persist(game);
         entityManager.persist(player);
         entityManager.flush();
+        entityManager.clear();
 
         // Retrieve and assert Game and Users exist
         Game persistedGame = entityManager.find(Game.class, game.getId());
@@ -40,12 +55,21 @@ public class LeaderboardRepositoryTest {
 
         assertNotNull(persistedGame, "Persisted game should not be null");
         assertNotNull(persistedUser, "Persisted user should not be null");
-        System.out.println(persistedGame.getName());
-        System.out.println(persistedUser.getName());
+        System.out.println("Game ID: " + game.getId());
+        System.out.println("User ID: " + player.getId());
+
         // Create and persist Leaderboard
+
         Leaderboard leaderboard = new Leaderboard(100.0f, player, game);
+        this.leaderboard = leaderboard;
+        System.out.println("Game ID: " + game.getId());
+        System.out.println("User ID: " + player.getId());
+
+        System.out.println(leaderboard.getId());
+        System.out.println(leaderboard);
         entityManager.persist(leaderboard);
         entityManager.flush();
+        entityManager.clear();
     }
 
 
@@ -53,6 +77,7 @@ public class LeaderboardRepositoryTest {
 
     @Test
     public void whenFindById_thenReturnLeaderboard() {
+
         Leaderboard found = leaderboardRepository.findById(leaderboard.getId()).orElse(null);
 
         assertNotNull(found, "Leaderboard should not be null");
