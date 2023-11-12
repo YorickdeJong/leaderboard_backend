@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
 import java.util.List;
 
 
@@ -30,14 +31,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Apply CORS configuration
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeRequests(authorize -> authorize
+                .csrf().disable()  // Correct placement of csrf().disable()
+                .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
-                )
-                .csrf().disable();
+                );
+
         return http.build();
     }
+
 
     // Define CORS configuration source
     @Bean
