@@ -1,6 +1,8 @@
 package com.example.java_test.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -10,6 +12,8 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name cannot be empty")
+    @Size(min = 3, message = "Name must be at least 3 characters long")
     private String username;
     private String password;
     private String email;
